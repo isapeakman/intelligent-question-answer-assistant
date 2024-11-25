@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: intelligent-question-answer-assistant
