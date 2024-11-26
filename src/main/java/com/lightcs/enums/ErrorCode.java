@@ -7,6 +7,7 @@ package com.lightcs.enums;
  **/
 public enum ErrorCode {
     PARAMS_ERROR(40000, "请求参数错误"),
+    UNLOGIN_ERROR(40001,"用户未登录"),
     ;
 
     private int code;

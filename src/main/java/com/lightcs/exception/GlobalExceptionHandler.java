@@ -34,4 +34,18 @@ public class GlobalExceptionHandler {
         return map;
     }
 
+    /**
+     *  业务异常拦截器
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(BusinessException.class)
+    public Map<String,Object> notValidR(BusinessException e) {
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("code", e.getCode());
+        map.put("data", Collections.emptyMap());
+        map.put("message",e.getMessage());
+        return map;
+    }
 }

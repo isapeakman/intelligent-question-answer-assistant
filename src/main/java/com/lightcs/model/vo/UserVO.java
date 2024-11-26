@@ -5,12 +5,15 @@ package com.lightcs.model.vo;
  * @DateTime: 2024/11/26 10:33
  **/
 
+import lombok.Data;
+
 /**
  * 用户视图类
  */
+@Data
 public class UserVO {
     private String userAccount;
-    private String userName;
+    private String username;
     private String userAvatar;
     private String userProfile;
     private String userRole;

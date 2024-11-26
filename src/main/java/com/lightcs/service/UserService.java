@@ -2,6 +2,9 @@ package com.lightcs.service;
 
 import com.lightcs.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lightcs.model.vo.LoginUserVO;
+import com.lightcs.model.vo.UserVO;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
 * @author chinese
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
     Long userRegister(String userAccount, String userPassword);
+    UserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    boolean userLogout(HttpServletRequest request);
+    LoginUserVO getCurrentLoginUser(HttpServletRequest request);
 }
