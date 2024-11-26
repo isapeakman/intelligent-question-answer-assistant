@@ -1,3 +1,22 @@
+server:
+  servlet:
+    context-path: /ia
+  port: 8080
 spring:
   application:
     name: intelligent-question-answer-assistant
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/intelligentassistant
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出sql执行日志
+
