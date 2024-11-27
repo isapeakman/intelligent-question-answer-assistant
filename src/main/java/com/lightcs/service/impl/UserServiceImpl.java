@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lightcs.enums.ErrorCode;
 import com.lightcs.exception.BusinessException;
+import com.lightcs.model.dto.user.UserQueryRequest;
 import com.lightcs.model.entity.User;
 import com.lightcs.model.vo.LoginUserVO;
 import com.lightcs.model.vo.UserVO;
 import com.lightcs.service.UserService;
 import com.lightcs.mapper.UserMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,22 +73,62 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public boolean userLogout(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(USER_LOGIN_STATUS);
         if(user==null){
-            throw new BusinessException(ErrorCode.UNLOGIN_ERROR);
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
         request.getSession().removeAttribute(USER_LOGIN_STATUS);
         return true;
     }
 
-    public LoginUserVO getCurrentLoginUser(HttpServletRequest request){
-        User user = (User) request.getSession().getAttribute(USER_LOGIN_STATUS);
+    /**
+     *  获取登录用户的视图信息
+     * @param request 请求
+     * @return 用户视图信息
+     */
+    public LoginUserVO getLoginUserVO(HttpServletRequest request){
+        User user = getUser(request);
         LoginUserVO loginUserVO = new LoginUserVO();
         BeanUtil.copyProperties(user,loginUserVO);
         return loginUserVO;
     }
+
+    /**
+     * 获取当前登录用户信息
+     * @param request 请求
+     * @return 用户信息
+     */
     public User getUser(HttpServletRequest request){
-        // todo 获取用户
-       request.getSession().getAttribute(USER_LOGIN_STATUS);
-       return null;
+        // 先判断是否已登录
+        User user = (User) request.getSession().getAttribute(USER_LOGIN_STATUS);
+        if(user==null || user.getId()==null){
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
+        // 数据库查询用户信息
+        Long userId = user.getId();
+        User currentUser = userMapper.selectById(userId);
+        if(currentUser==null){
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
+        return currentUser;
+    }
+
+    /**
+     *  获取查询条件
+     * @param request 请求
+     * @return 查询条件
+     */
+    public QueryWrapper<User> getQueryWrapper(UserQueryRequest request){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        String username = request.getUsername();
+        String userRole = request.getUserRole();
+        String sortField = request.getSortField();
+        String sorter = request.getSorter();
+
+        queryWrapper.eq(request.getId()!=null,"id",request.getId());
+        queryWrapper.like(StringUtils.isNotBlank(username),"username",request.getUsername());
+        queryWrapper.eq(StringUtils.isNotBlank(userRole),"user_role",request.getUserRole());
+        queryWrapper.orderBy(StringUtils.isNotBlank(sortField),
+                "desc".equals(sorter),sortField);//1.是否进行排序；2.true表示降序排序；false表示升序排序；3.排序的字段名
+        return queryWrapper;
     }
 }
 

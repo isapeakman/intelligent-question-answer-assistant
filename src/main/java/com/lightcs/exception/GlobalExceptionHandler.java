@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String,Object> notValidR(MethodArgumentNotValidException e) {
+    public Map<String,Object> handleNotValidException(MethodArgumentNotValidException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
         map.put("data", Collections.emptyMap());
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
-    public Map<String,Object> notValidR(BusinessException e) {
+    public Map<String,Object> handleBusinessException(BusinessException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put("code", e.getCode());
         map.put("data", Collections.emptyMap());
