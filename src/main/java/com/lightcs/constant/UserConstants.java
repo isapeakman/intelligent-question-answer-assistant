@@ -7,4 +7,5 @@ package com.lightcs.constant;
  **/
 public interface UserConstants {
     String USER_LOGIN_STATUS = "user_login";
+    String ROLE_ADMIN = "admin";
 }

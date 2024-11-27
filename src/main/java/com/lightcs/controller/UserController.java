@@ -2,10 +2,12 @@ package com.lightcs.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lightcs.annotation.CheckAuth;
 import com.lightcs.common.BaseResponse;
 import com.lightcs.common.PaginationBuilder;
 import com.lightcs.common.ResultBuilder;
 import com.lightcs.enums.ErrorCode;
+import com.lightcs.enums.UserRoleEnum;
 import com.lightcs.exception.BusinessException;
 import com.lightcs.exception.ThrowUtils;
 import com.lightcs.model.dto.user.*;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.lightcs.enums.UserRoleEnum.ADMIN;
 
 /**
  * @Author: peak-like
@@ -114,6 +118,7 @@ public class UserController {
 
     //region 管理员相关
     @GetMapping("/list")
+    @CheckAuth(mustRole = ADMIN)
     public BaseResponse<Map<String,Object>> listUser(UserQueryRequest userQueryRequest){
         int current = userQueryRequest.getCurrent();
         int pageSize = userQueryRequest.getPageSize();
@@ -123,6 +128,7 @@ public class UserController {
         return ResultBuilder.success(result);
     }
     @GetMapping("/getUser/{id}")
+    @CheckAuth(mustRole = ADMIN)
     public BaseResponse<User> getUser(@PathVariable long id){
         if(id<=0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);

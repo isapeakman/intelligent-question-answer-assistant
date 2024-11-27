@@ -106,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         Long userId = user.getId();
         User currentUser = userMapper.selectById(userId);
         if(currentUser==null){
-            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"该用户不存在");
         }
         return currentUser;
     }
