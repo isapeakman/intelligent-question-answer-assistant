@@ -3,8 +3,8 @@ package com.lightcs.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lightcs.enums.ErrorCode;
-import com.lightcs.exception.BusinessException;
+import com.lightcs.common.enums.ErrorCode;
+import com.lightcs.common.exception.BusinessException;
 import com.lightcs.model.dto.user.UserQueryRequest;
 import com.lightcs.model.entity.User;
 import com.lightcs.model.vo.LoginUserVO;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.lightcs.constant.UserConstants.USER_LOGIN_STATUS;
+import static com.lightcs.common.constant.UserConstants.USER_LOGIN_STATUS;
 
 /**
 * @author chinese

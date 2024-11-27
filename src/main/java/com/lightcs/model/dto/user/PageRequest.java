@@ -1,6 +1,6 @@
 package com.lightcs.model.dto.user;
 
-import com.lightcs.constant.CommonConstant;
+import com.lightcs.common.constant.CommonConstant;
 import lombok.Data;
 
 /**

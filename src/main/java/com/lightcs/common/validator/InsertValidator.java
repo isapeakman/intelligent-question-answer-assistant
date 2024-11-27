@@ -1,4 +1,4 @@
-package com.lightcs.validator;
+package com.lightcs.common.validator;
 
 /**
  * @Author: MR.WU

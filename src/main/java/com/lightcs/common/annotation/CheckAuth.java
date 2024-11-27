@@ -1,6 +1,6 @@
-package com.lightcs.annotation;
+package com.lightcs.common.annotation;
 
-import com.lightcs.enums.UserRoleEnum;
+import com.lightcs.common.enums.UserRoleEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

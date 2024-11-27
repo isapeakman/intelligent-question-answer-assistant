@@ -1,4 +1,4 @@
-package com.lightcs.common;
+package com.lightcs.common.result;
 
 /**
  * @Author: MR.WU

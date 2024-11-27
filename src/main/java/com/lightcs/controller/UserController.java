@@ -2,14 +2,13 @@ package com.lightcs.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lightcs.annotation.CheckAuth;
-import com.lightcs.common.BaseResponse;
-import com.lightcs.common.PaginationBuilder;
-import com.lightcs.common.ResultBuilder;
-import com.lightcs.enums.ErrorCode;
-import com.lightcs.enums.UserRoleEnum;
-import com.lightcs.exception.BusinessException;
-import com.lightcs.exception.ThrowUtils;
+import com.lightcs.common.annotation.CheckAuth;
+import com.lightcs.common.result.BaseResponse;
+import com.lightcs.common.result.PaginationBuilder;
+import com.lightcs.common.result.ResultBuilder;
+import com.lightcs.common.enums.ErrorCode;
+import com.lightcs.common.exception.BusinessException;
+import com.lightcs.common.exception.ThrowUtils;
 import com.lightcs.model.dto.user.*;
 import com.lightcs.model.entity.User;
 import com.lightcs.model.vo.LoginUserVO;
@@ -20,10 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
-import static com.lightcs.enums.UserRoleEnum.ADMIN;
+import static com.lightcs.common.enums.UserRoleEnum.ADMIN;
 
 /**
  * @Author: peak-like

@@ -1,4 +1,4 @@
-package com.lightcs.common;
+package com.lightcs.common.result;
 
 import java.util.LinkedHashMap;
 import java.util.List;

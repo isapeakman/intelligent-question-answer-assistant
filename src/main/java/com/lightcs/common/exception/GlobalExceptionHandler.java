@@ -1,6 +1,5 @@
-package com.lightcs.exception;
+package com.lightcs.common.exception;
 
-import com.lightcs.common.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

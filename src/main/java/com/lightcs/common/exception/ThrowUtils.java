@@ -1,6 +1,6 @@
-package com.lightcs.exception;
+package com.lightcs.common.exception;
 
-import com.lightcs.enums.ErrorCode;
+import com.lightcs.common.enums.ErrorCode;
 
 /**
  * @Author: peak-like

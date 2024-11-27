@@ -1,4 +1,4 @@
-package com.lightcs.constant;
+package com.lightcs.common.constant;
 
 /**
  * @Author: peak-like

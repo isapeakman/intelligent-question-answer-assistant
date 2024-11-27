@@ -1,6 +1,7 @@
-package com.lightcs.common;
+package com.lightcs.common.result;
 
 import cn.hutool.http.HttpStatus;
+import com.lightcs.common.result.BaseResponse;
 
 /**
  * @Author: peak-like
@@ -12,7 +13,7 @@ public class ResultBuilder{
     private ResultBuilder() {
     }
 
-    public static synchronized<T>BaseResponse<T> success(T data){
+    public static synchronized<T> BaseResponse<T> success(T data){
         return new BaseResponse<T>(HttpStatus.HTTP_OK,data,SUCCESS);
     }
 }

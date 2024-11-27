@@ -1,19 +1,19 @@
-package com.lightcs.aop;
+package com.lightcs.common.aop;
 
-import com.lightcs.annotation.CheckAuth;
-import com.lightcs.enums.ErrorCode;
-import com.lightcs.enums.UserRoleEnum;
-import com.lightcs.exception.BusinessException;
+import com.lightcs.common.annotation.CheckAuth;
+import com.lightcs.common.enums.ErrorCode;
+import com.lightcs.common.enums.UserRoleEnum;
+import com.lightcs.common.exception.BusinessException;
 import com.lightcs.model.vo.LoginUserVO;
 import com.lightcs.service.UserService;
-import com.lightcs.utils.ServletUtils;
+import com.lightcs.common.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.lightcs.enums.UserRoleEnum.*;
+import static com.lightcs.common.enums.UserRoleEnum.*;
 
 /**
  * @Author: peak-like

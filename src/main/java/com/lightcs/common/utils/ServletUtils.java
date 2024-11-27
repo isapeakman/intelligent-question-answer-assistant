@@ -1,4 +1,4 @@
-package com.lightcs.utils;
+package com.lightcs.common.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestAttributes;

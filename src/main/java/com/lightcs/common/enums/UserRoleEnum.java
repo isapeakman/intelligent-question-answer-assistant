@@ -1,4 +1,4 @@
-package com.lightcs.enums;
+package com.lightcs.common.enums;
 
 import org.apache.commons.lang3.ObjectUtils;
 
