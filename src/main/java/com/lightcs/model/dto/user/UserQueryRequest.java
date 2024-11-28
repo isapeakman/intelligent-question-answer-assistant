@@ -1,7 +1,9 @@
 package com.lightcs.model.dto.user;
 
+import com.lightcs.model.dto.PageRequest;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,7 @@ import java.io.Serializable;
  **/
 @Data
 public class UserQueryRequest extends PageRequest implements Serializable {
+    @Serial
     private static final long serialVersionUID = 3191241716373120793L;
     /**
      * id

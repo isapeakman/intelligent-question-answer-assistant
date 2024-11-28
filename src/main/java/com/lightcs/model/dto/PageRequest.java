@@ -1,7 +1,10 @@
-package com.lightcs.model.dto.user;
+package com.lightcs.model.dto;
 
 import com.lightcs.common.constant.CommonConstant;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @Author: peak-like
@@ -9,7 +12,9 @@ import lombok.Data;
  * @DateTime: 2024/11/27 9:56
  **/
 @Data
-public class PageRequest {
+public class PageRequest implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 当前页号

@@ -122,8 +122,7 @@ public class UserController {
         int pageSize = userQueryRequest.getPageSize();
         Page<User> page = userService.page(new Page<>(current,pageSize),userService.getQueryWrapper(userQueryRequest));//MP的分页查询
 
-        Map<String, Object> result = PaginationBuilder.build(page.getRecords(), page.getTotal(), current, pageSize);
-        return ResultBuilder.success(result);
+        return PaginationBuilder.build(page);
     }
     @GetMapping("/getUser/{id}")
     @CheckAuth(mustRole = ADMIN)
