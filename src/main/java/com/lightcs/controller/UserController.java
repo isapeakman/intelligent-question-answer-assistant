@@ -115,8 +115,7 @@ public class UserController {
 
 
     //region 管理员相关
-    @GetMapping("/list")
-    @CheckAuth(mustRole = ADMIN)
+    @GetMapping("/admin/list")
     public BaseResponse<Map<String,Object>> listUser(UserQueryRequest userQueryRequest){
         int current = userQueryRequest.getCurrent();
         int pageSize = userQueryRequest.getPageSize();
@@ -124,8 +123,7 @@ public class UserController {
 
         return PaginationBuilder.build(page);
     }
-    @GetMapping("/getUser/{id}")
-    @CheckAuth(mustRole = ADMIN)
+    @GetMapping("/admin/getUser/{id}")
     public BaseResponse<User> getUser(@PathVariable long id){
         if(id<=0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -133,6 +131,33 @@ public class UserController {
         User user = userService.getById(id);
         ThrowUtils.throwIf(user==null,ErrorCode.NOT_FOUND_ERROR,"未找到id为"+id+"的用户");
         return ResultBuilder.success(user);
+    }
+
+    /**
+     *  强制下线
+     * @param id 用户id
+     * @return 结果
+     */
+    @GetMapping("/admin/kick/{id}")
+    @CheckAuth(mustRole = ADMIN)
+    public BaseResponse<Boolean> kickUser(@PathVariable long id){
+        if(id<=0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        boolean result = userService.kickUser(id);
+        return ResultBuilder.success(result);
+    }
+
+    /**
+     *  强制下线
+     * @param token token
+     * @return 结果
+     */
+    @GetMapping("/admin/kick/{token}")
+    @CheckAuth(mustRole = ADMIN)
+    public BaseResponse<Boolean> kickUser(@PathVariable String token){
+        boolean result = userService.kickUserByToken(token);
+        return ResultBuilder.success(result);
     }
     //endregion
 

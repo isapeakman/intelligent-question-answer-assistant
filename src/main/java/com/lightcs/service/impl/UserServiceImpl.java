@@ -1,5 +1,6 @@
 package com.lightcs.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -61,10 +62,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         queryWrapper.eq("user_account",userAccount);
         queryWrapper.eq("user_password",userPassword);
         User user = userMapper.selectOne(queryWrapper);
-        if(user==null){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR,"用户名或密码错误");
+        if(user==null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户名或密码错误");
         }
-        request.getSession().setAttribute(USER_LOGIN_STATUS,user);
+//        request.getSession().setAttribute(USER_LOGIN_STATUS,user);
+        // sa-token登录
+        StpUtil.login(user.getId());
 
         UserVO userVO = new UserVO();
         BeanUtil.copyProperties(user,userVO);
@@ -73,11 +76,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public boolean userLogout(HttpServletRequest request) {
-        User user = (User)request.getSession().getAttribute(USER_LOGIN_STATUS);
-        if(user==null){
-            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
-        }
-        request.getSession().removeAttribute(USER_LOGIN_STATUS);
+//        User user = (User)request.getSession().getAttribute(USER_LOGIN_STATUS);
+//        if(user==null){
+//            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+//        }
+//        request.getSession().removeAttribute(USER_LOGIN_STATUS);
+        // sa-token登出
+        StpUtil.checkLogin();
+        StpUtil.logout();
         return true;
     }
 
@@ -100,12 +106,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      */
     public User getUser(HttpServletRequest request){
         // 先判断是否已登录
-        User user = (User) request.getSession().getAttribute(USER_LOGIN_STATUS);
-        if(user==null || user.getId()==null){
-            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
-        }
+//        User user = (User) request.getSession().getAttribute(USER_LOGIN_STATUS);
+//        if(user==null || user.getId()==null){
+//            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+//        }
+        // 已登录，获取登录态中的用户信息
+        Long userId = StpUtil.getLoginIdAsLong();
         // 数据库查询用户信息
-        Long userId = user.getId();
+//        Long userId = user.getId();
         User currentUser = userMapper.selectById(userId);
         if(currentUser==null){
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"该用户不存在");
@@ -137,6 +145,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public Boolean isAdmin(HttpServletRequest request) {
         User user = this.getUser(request);
         return getEnumByValue(user.getUserRole()) == ADMIN;
+    }
+
+    @Override
+    public boolean kickUser(long id) {
+        StpUtil.kickout(id);
+        return true;
+    }
+
+    @Override
+    public boolean kickUserByToken(String token) {
+        StpUtil.kickoutByTokenValue(token);
+        return true;
     }
 }
 

@@ -20,4 +20,8 @@ public interface UserService extends IService<User> {
     LoginUserVO getLoginUserVO(HttpServletRequest request);
     QueryWrapper<User> getQueryWrapper(UserQueryRequest request);
     Boolean isAdmin(HttpServletRequest request);
+
+    boolean kickUser(long id);
+
+    boolean kickUserByToken(String token);
 }

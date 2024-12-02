@@ -1,5 +1,6 @@
 package com.lightcs.common.exception;
 
+import cn.dev33.satoken.util.SaResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,12 +40,17 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ResponseBody
-    @ExceptionHandler(BusinessException.class)
-    public Map<String,Object> handleBusinessException(BusinessException e) {
+    @ExceptionHandler(Exception.class)
+    public Map<String,Object> handleBusinessException(Exception e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put("code", e.getCode());
+        if(e instanceof BusinessException){
+            map.put("code",((BusinessException) e).getCode());
+        }else{
+            map.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         map.put("data", Collections.emptyMap());
         map.put("message",e.getMessage());
         return map;
     }
+
 }
