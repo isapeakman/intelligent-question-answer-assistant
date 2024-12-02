@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.lightcs.common.constant.UserConstants.USER_LOGIN_STATUS;
+import static com.lightcs.common.enums.UserRoleEnum.ADMIN;
+import static com.lightcs.common.enums.UserRoleEnum.getEnumByValue;
 
 /**
 * @author chinese
@@ -129,6 +131,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         queryWrapper.orderBy(StringUtils.isNotBlank(sortField),
                 "desc".equals(sorter),sortField);//1.是否进行排序；2.true表示降序排序；false表示升序排序；3.排序的字段名
         return queryWrapper;
+    }
+
+    @Override
+    public Boolean isAdmin(HttpServletRequest request) {
+        User user = this.getUser(request);
+        return getEnumByValue(user.getUserRole()) == ADMIN;
     }
 }
 
